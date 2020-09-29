@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+	DjangoMovie - {{movie.title}}
+{% endblock %}
+
+
+{% block content %}
+	<div class="container mt-2">
+		<div class="row">
+			<div class="col-3">
+				<img src="{{ movie.poster.url }}" class="mt-2" style="height: 22rem; width: 18rem">
+			</div>
+
+			<div class="col-6" style="padding: 0 5em;">
+				<h1><span style="font-weight: bold;">{{ movie.title }}</span></h1>
+
+				<h5><span style="font-weight: bold;">{{ movie.tagline }}</span></h5>
+
+				<p><span style="font-weight: bold;">Дата выхода:</span> {{ movie.year }}</p>
+				<p><span style="font-weight: bold;">Страны: </span>{{ movie.country }}</p>
+				<p><span style="font-weight: bold;">Режиссёр: </span>
+				
+				{% for director in movie.directors.all %}
+					{{ director.name }}
+				{% endfor %}
+
+
+				</p>
+				<p><span style="font-weight: bold;">Актёры: </span>
+
+				{% for actor in movie.actors.all %}
+					{{ actor.name }}
+				{% endfor %}
+
+				</p>
+				<p><span style="font-weight: bold;">Жанры: </span>
+
+				{% for genre in movie.genres.all %}
+					{{ genre.name }}
+				{% endfor %}
+
+				</p>
+				<p><span style="font-weight: bold;">Премьера в мире: </span>{{ movie.world_premiere }}</p>
+				<p><span style="font-weight: bold;">Бюджет: </span>${{ movie.budget }}</p>
+				<p><span style="font-weight: bold;">Сборы в США: </span>${{ movie.fees_in_usa }}</p>
+				<p><span style="font-weight: bold;">Сборы в мире: </span>${{ movie.fees_in_world }}</p>
+			</div>
+		</div>
+	</div>
+	
+{% endblock %}
