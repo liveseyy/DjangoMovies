@@ -1,53 +1,103 @@
 {% extends 'base.html' %}
+{% load static %}
 
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+{% endblock %}
 
 {% block title %}
-	DjangoMovie - {{movie.title}}
+DjangoMovie - {{movie.title}}
 {% endblock %}
 
 
 {% block content %}
-	<div class="container mt-2">
-		<div class="row">
-			<div class="col-3">
-				<img src="{{ movie.poster.url }}" class="mt-2" style="height: 22rem; width: 18rem">
-			</div>
+<div class="container mt-2">
+	<div class="row">
+		<div class="col-3">
+			<img src="{{ movie.poster.url }}" class="mt-2" style="height: 22rem; width: 18rem">
+		</div>
 
-			<div class="col-6" style="padding: 0 5em;">
-				<h1><span style="font-weight: bold;">{{ movie.title }}</span></h1>
+		<div class="col-6" style="padding: 0 5em;">
+			<h1><span>{{ movie.title }}</span></h1>
 
-				<h5><span style="font-weight: bold;">{{ movie.tagline }}</span></h5>
+			<h5><span>{{ movie.tagline }}</span></h5>
 
-				<p><span style="font-weight: bold;">Дата выхода:</span> {{ movie.year }}</p>
-				<p><span style="font-weight: bold;">Страны: </span>{{ movie.country }}</p>
-				<p><span style="font-weight: bold;">Режиссёр: </span>
-				
+			<p><span>Дата выхода:</span> {{ movie.year }}</p>
+			<p><span>Страны: </span>{{ movie.country }}</p>
+			<p><span>Режиссёр: </span>
+
 				{% for director in movie.directors.all %}
-					{{ director.name }}
+				{{ director.name }}
 				{% endfor %}
 
 
-				</p>
-				<p><span style="font-weight: bold;">Актёры: </span>
+			</p>
+			<p><span>Актёры: </span>
 
 				{% for actor in movie.actors.all %}
-					{{ actor.name }}
+				{{ actor.name }}
 				{% endfor %}
 
-				</p>
-				<p><span style="font-weight: bold;">Жанры: </span>
+			</p>
+			<p><span>Жанры: </span>
 
 				{% for genre in movie.genres.all %}
-					{{ genre.name }}
+				{{ genre.name }}
 				{% endfor %}
 
-				</p>
-				<p><span style="font-weight: bold;">Премьера в мире: </span>{{ movie.world_premiere }}</p>
-				<p><span style="font-weight: bold;">Бюджет: </span>${{ movie.budget }}</p>
-				<p><span style="font-weight: bold;">Сборы в США: </span>${{ movie.fees_in_usa }}</p>
-				<p><span style="font-weight: bold;">Сборы в мире: </span>${{ movie.fees_in_world }}</p>
-			</div>
+			</p>
+			<p><span>Премьера в мире: </span>{{ movie.world_premiere }}</p>
+			<p><span>Бюджет: </span>${{ movie.budget }}</p>
+			<p><span>Сборы в США: </span>${{ movie.fees_in_usa }}</p>
+			<p><span>Сборы в мире: </span>${{ movie.fees_in_world }}</p>
+		</div>
+
+		<div class="col-12 mt-5">
+			<h5 class="mb-3" style="text-align: center;">Кадры из фильма</h5>
+			{% for image in movie.movieshots_set.all %}
+			<img src="{{ image.image.url }}" class="img-movie-shots" alt="{{ image.description }}">
+			{% endfor %}
+		</div>
+
+		<div class="col-12 mt-5">
+			<p style="text-indent: 25px;">{{ movie.description }}</p>
+		</div>
+		<div class="col-6 offset-md-3 mt-5">
+			<form action="{% url 'add_review_url' movie.id %}" method="post">
+				{% csrf_token %}
+				<div class="form-group">
+					<label for="exampleFormControlTextarea1">Отзыв</label>
+					<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="text"></textarea>
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail1">Email</label>
+					<input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
+				</div>
+				<div class="form-group">
+					<label for="exampleInput">Имя</label>
+					<input type="text" class="form-control" id="exampleInput" name="name">
+				</div>
+				<button type="submit" class="btn btn-primary" style="position: relative; left: 50%; transform: translate(-50%, 0);">Отправить</button>
+			</form>
+
+		<div class="mt-5">
+			<h4>Отзывы:</h4>
+
+			{% for review in movie.reviews_set.all %}
+				<div>
+					<h5>
+						{{ review.name }}
+					</h5>
+
+					<p>
+						{{ review.text }}
+					</p>
+				</div>
+			{% endfor %}
+		</div>
 		</div>
 	</div>
-	
+</div>
+
 {% endblock %}

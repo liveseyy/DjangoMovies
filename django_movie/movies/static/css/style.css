@@ -1,0 +1,9 @@
+p span, h1 span, h5 span {
+	font-weight: bold;
+}
+
+.img-movie-shots {
+	padding: 2px 0;
+	max-width: 250px;
+	height: auto;
+}
