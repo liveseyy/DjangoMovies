@@ -6,6 +6,9 @@ __pycache__/
 # pycharm
 .idea
 
+# 
+django_movie/media/
+
 # C extensions
 *.so
 
