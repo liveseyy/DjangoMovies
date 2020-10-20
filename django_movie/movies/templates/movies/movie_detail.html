@@ -61,7 +61,7 @@ DjangoMovie - {{movie.title}}
 		</div>
 
 		<div class="col-12 mt-5">
-			<p style="text-indent: 25px;">{{ movie.description }}</p>
+			<p style="text-indent: 25px;">{{ movie.description|safe }}</p>
 		</div>
 		<div class="col-6 offset-md-3 mt-5">
 
