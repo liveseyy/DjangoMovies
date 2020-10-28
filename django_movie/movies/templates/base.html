@@ -1,3 +1,4 @@
+{% load movie_tag %}
 
 <!DOCTYPE html>
 <html>
@@ -31,7 +32,10 @@
 							Категории
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="#">Фильмы</a>
+							{% get_categories as categories %}
+							{% for category in categories %}
+								<a class="dropdown-item" href="/">{{ category.name }}</a>
+							{% endfor %}
 						</div>
 					</li>
 				</ul>

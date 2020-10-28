@@ -3,7 +3,7 @@ from django.views.generic import ListView, DetailView
 from django.views import View
 import os
 
-from .models import Movie
+from .models import Movie, Category
 
 from .forms import ReviewForm
 # Create your views here.
@@ -12,7 +12,11 @@ from .forms import ReviewForm
 class MoviesView(ListView):
     model = Movie
     queryset = Movie.objects.filter(draft=False)
-    template_name = "movies/movie_list.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['categories'] = Category.objects.all()
+        return context
 
 
 class MovieDetailView(DetailView):

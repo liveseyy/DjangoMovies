@@ -1,0 +1,7 @@
+<div class="mt-5">
+    <h4>Последние добавленные:</h4>
+    {% for movie in last_movies %}
+        <h6>{{ movie.title }}</h6>
+        <a href="{{ movie.get_absolute_url }}"></a>
+    {% endfor %}
+</div>

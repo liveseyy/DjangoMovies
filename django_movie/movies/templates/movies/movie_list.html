@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load movie_tag %}
 
 {% block title %}
 	DjangoMovie
@@ -14,8 +15,10 @@
 					<div class="mt-2">
 						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 					</div>
-				</form>
+				</form>	
+				{% get_last_movies count=5 %}
 			</div>
+
 			<div class="col-9 row mt-2">
 				{% for movie in movie_list %}
 				<div class="card mr-5 mb-5" style="width: 18rem;">
