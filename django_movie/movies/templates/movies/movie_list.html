@@ -2,40 +2,64 @@
 {% load movie_tag %}
 
 {% block title %}
-	DjangoMovie
+DjangoMovie
 {% endblock %}
 
 {% block content %}
-
-	<main>
-		<div class="row" style="padding: 0 0; margin: 0 0;">
-			<div class="col-3">
-				<form class="form-inline my-2 my-lg-0">
-					<input class="form-control mr-sm-2 mt-2" type="search" placeholder="Search" aria-label="Search" style="width: 65%">
-					<div class="mt-2">
-						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-					</div>
-				</form>	
-				{% get_last_movies count=5 %}
-			</div>
-
-			<div class="col-9 row mt-2">
-				{% for movie in movie_list %}
-				<div class="card mr-5 mb-5" style="width: 18rem;">
-					<img src="{{ movie.poster.url }}" class="card-img-top" alt="..." style="height: 22rem;">
-					<div class="card-body">
-						<a href="{{ movie.get_absolute_url }}">
-							<h5 class="card-title" style="text-align: center;">{{ movie.title }}</h5>
-						<a>
-						<p class="card-text">{{ movie.tagline }}</p>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">Рейтинг: #</li>
-					</ul>
+<main>
+	<div class="row" style="padding: 0 0; margin: 0 0;">
+		<div class="col-3">
+			<form class="form-inline my-2 my-lg-0">
+				<input class="form-control mr-sm-2 mt-2" type="search" placeholder="Search" aria-label="Search" style="width: 65%">
+				<div class="mt-2">
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 				</div>
-				{% endfor %}
-			</div>
-		</div>
-	</main>
+			</form>	
 
+			<form action="{% url 'filter_url' %}" method="get">
+				<div class="mt-5">
+					<h5>Жанры</h5>
+					{% for genre in view.get_genres %}
+					<li class="mt-3" style="list-style-type: none;">
+						<input type="checkbox" name="genre" value="{{ genre.id }}">
+						<span class="ml-2">{{ genre.name|title }}</span>
+					</li>
+					{% endfor %}
+				</div>
+
+				<div class="mt-5">
+					<h5>Год</h5>
+					{% for year in view.get_years %}
+					<li class="mt-3" style="list-style-type: none">
+						<input type="checkbox" name="year" value="{{ year }}">
+						<span class="ml-2">{{ year }}</span>
+					</li>
+					{% endfor %}
+				</div>
+				<button type="submit">Найти</button>
+			</form>
+
+			{% get_last_movies count=5 %}
+		</div>
+
+
+
+		<div class="col-9 row mt-2">
+			{% for movie in movie_list %}
+			<div class="card mr-5 mb-5" style="width: 265px; height: 580px;">
+				<img src="{{ movie.poster.url }}" class="card-img-top" alt="..." style="height: 380px;">
+				<div class="card-body">
+					<a href="{{ movie.get_absolute_url }}">
+						<h5 class="card-title" style="text-align: center;">{{ movie.title }}</h5>
+					</a>
+					<p class="card-text">{{ movie.tagline }} </p>
+				</div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">Рейтинг: </li>
+				</ul>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</main>
 {% endblock %}

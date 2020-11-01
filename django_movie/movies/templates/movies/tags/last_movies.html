@@ -1,11 +1,11 @@
 <div class="mt-5">
-    <h5>Последние добавленные:</h5>
+    <h5>Последние добавленные</h5>
     {% for movie in last_movies %}
     	<div class="row">
-    		<a href="{{ movie.get_absolute_url }}" class="ml-5 mt-3">
+    		<a href="{{ movie.get_absolute_url }}" class="ml-3 mt-3">
     			<img src="{{ movie.poster.url }}" style="height: 120px; width: 80px">
     		</a>
-	        <h6 class="ml-5 mt-3">{{ movie.title }}</h6>
+	        <h6 class="ml-3 mt-3">{{ movie.title }}</h6>
     	</div>
     {% endfor %}
 </div>
