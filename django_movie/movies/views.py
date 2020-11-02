@@ -1,4 +1,5 @@
 from django.db.models import Q
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.views import View
@@ -54,15 +55,20 @@ class ActorView(GenreYear, DetailView):
 class FilterMoviesView(GenreYear, ListView):
     """Фильтр фильмов"""
     def get_queryset(self):
-        queryset = Movie.objects.filter(
-                                        Q(year__in=self.request.GET.getlist("year")) |
-                                        Q(genres__in=self.request.GET.getlist("genre"))
-                                        ).distinct()
+        if self.request.GET.getlist("genre") and not self.request.GET.getlist("year"):
+            queryset = Movie.objects.filter(genres__in=self.request.GET.getlist("genre")).distinct()
+            return queryset
+
+        elif self.request.GET.getlist("year") and not self.request.GET.getlist("genre"):
+            queryset = Movie.objects.filter(year__in=self.request.GET.getlist("year")).distinct()
+            return queryset
+
+        elif self.request.GET.getlist("year") and self.request.GET.getlist("genre"):
+            queryset = Movie.objects.filter(
+                                            year__in=self.request.GET.getlist("year"),
+                                            genres__in=self.request.GET.getlist("genre")
+                                            ).distinct()
+            return queryset
+
+        queryset = Movie.objects.all()
         return queryset
-
-
-
-
-
-
-
