@@ -2,7 +2,7 @@ from django import forms
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from .models import Category, Actor, Genre, Raiting, RatingStar, Reviews, Movie, MovieShots
+from .models import Category, Actor, Genre, Rating, RatingStar, Reviews, Movie, MovieShots
 
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
@@ -124,7 +124,7 @@ class ActorAdmin(admin.ModelAdmin):
     get_image.short_description = "Изображение"
 
 
-@admin.register(Raiting)
+@admin.register(Rating)
 class RaitingAdmin(admin.ModelAdmin):
     list_display = ("movie", "ip", "star")
 
