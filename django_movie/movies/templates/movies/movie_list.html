@@ -9,10 +9,10 @@ DjangoMovie
 <main>
 	<div class="row" style="padding: 0 0; margin: 0 0;">
 		<div class="col-3">
-			<form class="form-inline my-2 my-lg-0">
-				<input class="form-control mr-sm-2 mt-2" type="search" placeholder="Search" aria-label="Search" style="width: 65%">
+			<form class="form-inline my-2 my-lg-0" action="{% url 'search_url' %}" method="get">
+				<input class="form-control mr-sm-2 mt-2" type="search" name='q' placeholder="Введите название..." aria-label="Search" style="width: 65%">
 				<div class="mt-2">
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
 				</div>
 			</form>	
 
