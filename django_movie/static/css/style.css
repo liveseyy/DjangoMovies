@@ -41,4 +41,40 @@ p span, h1 span, h5 span {
   transition: opacity 0.2s linear;
 }
 
+
 .rating > label:hover:before,  .rating > label:hover ~ label:before,  .rating:not(:hover) > :checked ~ label:before { opacity: 1; }
+
+ul.pagination {
+  margin: 0 auto;
+}
+.pagination__item {
+  text-align: center;
+  margin: 0 10px;
+  height: 30px;
+  width: 30px;
+  background: #179052;
+  border-radius: 50%;
+}
+.pagination__item--dots {
+  text-align: center;
+  margin: 0 10px;
+  height: 30px;
+  width: 30px;
+  background: #179052;
+  border-radius: 50%;
+}
+.pagination__link {
+  font-size: 19px;
+  color: #fff;
+}
+.pagination__link:hover{
+  text-decoration: none;
+  color: #fff;
+}
+.pagination__link:visited{
+  color: #fff;
+}
+.active{
+  background: #272727;
+}
+.paginatin__item--dots {}

@@ -1,11 +1,9 @@
-from django.db.models import Q
-from django.http import JsonResponse, HttpResponse
-from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView
 from django.views import View
-import os
 
-from .models import Movie, Category, Actor, Genre, Rating
+from .models import Movie, Actor, Genre, Rating
 
 from .forms import ReviewForm, RatingForm
 
@@ -22,6 +20,7 @@ class GenreYear:
 class MoviesView(GenreYear, ListView):
     model = Movie
     queryset = Movie.objects.filter(draft=False)
+    paginate_by = 4
 
 
 class MovieDetailView(GenreYear, DetailView):
@@ -56,6 +55,8 @@ class ActorView(GenreYear, DetailView):
 
 class FilterMoviesView(GenreYear, ListView):
     """Фильтр фильмов"""
+    paginate_by = 4
+
     def get_queryset(self):
         if self.request.GET.getlist("genre") and not self.request.GET.getlist("year"):
             queryset = Movie.objects.filter(genres__in=self.request.GET.getlist("genre")).distinct()
@@ -74,6 +75,12 @@ class FilterMoviesView(GenreYear, ListView):
 
         queryset = Movie.objects.all()
         return queryset
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["year"] = ''.join([f"year={x}&" for x in self.request.GET.getlist("year")])
+        context["genre"] = ''.join([f"genre={x}&" for x in self.request.GET.getlist("genre")])
+        return context
 
 
 class AddStarRating(View):

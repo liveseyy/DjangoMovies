@@ -44,21 +44,25 @@ DjangoMovie
 
 
 
-		<div class="col-9 row mt-2">
-			{% for movie in movie_list %}
-			<div class="card mr-5 mb-5" style="width: 265px; height: 580px;">
-				<img src="{{ movie.poster.url }}" class="card-img-top" alt="..." style="height: 380px;">
-				<div class="card-body">
-					<a href="{{ movie.get_absolute_url }}">
-						<h5 class="card-title" style="text-align: center;">{{ movie.title }}</h5>
-					</a>
-					<p class="card-text">{{ movie.tagline }} </p>
+		<div class="col-9 mt-2">
+			<div class="row">
+				{% for movie in movie_list %}
+				<div class="card mr-5 mb-5" style="width: 265px; height: 580px;">
+					<img src="{{ movie.poster.url }}" class="card-img-top" alt="..." style="height: 380px;">
+					<div class="card-body">
+						<a href="{{ movie.get_absolute_url }}">
+							<h5 class="card-title" style="text-align: center;">{{ movie.title }}</h5>
+						</a>
+						<p class="card-text">{{ movie.tagline }} </p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">Рейтинг: </li>
+					</ul>
 				</div>
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item">Рейтинг: </li>
-				</ul>
+				{% endfor %}
 			</div>
-			{% endfor %}
+			{% include 'include/pagination.html' %}
+			</div>
 		</div>
 	</div>
 </main>
