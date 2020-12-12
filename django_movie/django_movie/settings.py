@@ -38,9 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "ckeditor",
-    "ckeditor_uploader",
+    'django.contrib.sites',
+    'django.contrib.flatpages',
+
+    'ckeditor',
+    'ckeditor_uploader',
     'movies',
+
+    'snowpenguin.django.recaptcha3',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 ]
 
 ROOT_URLCONF = 'django_movie.urls'
@@ -123,7 +129,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [STATIC_DIR,]
+STATICFILES_DIRS = [STATIC_DIR, ]
 
 
 MEDIA_URL = '/media/'
@@ -131,6 +137,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
+# Настройки ckeditor
 CKEDITOR_CONFIGS = {
     'default': {
         'skin': 'moono',
@@ -196,3 +203,12 @@ CKEDITOR_CONFIGS = {
         ]),
     }
 }
+
+# Настройки reCAPTCHA
+RECAPTCHA_PUBLIC_KEY = '6LcyGQMaAAAAAHs3me0MXJeYZqUcHdVeccWB2_V1'
+RECAPTCHA_PRIVATE_KEY = '6LcyGQMaAAAAAMcgkIgRm9c72G8UrktvKkiZtwK9'
+RECAPTCHA_DEFAULT_ACTION = 'generic'
+RECAPTCHA_SCORE_THRESHOLD = 0.5
+
+
+SITE_ID = 1

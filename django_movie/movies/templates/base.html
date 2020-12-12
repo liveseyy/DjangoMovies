@@ -1,5 +1,5 @@
 {% load movie_tag %}
-{% load static %}
+{% load static recaptcha3 %}
 
 <!DOCTYPE html>
 <html>
@@ -14,6 +14,9 @@
             DjangoMovie
         {% endblock title %}
     </title>
+
+	{% recaptcha_init %}
+	{% recaptcha_ready action_name='homepage' %}
 </head>
 <body>
 
