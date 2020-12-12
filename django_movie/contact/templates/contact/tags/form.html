@@ -1,0 +1,5 @@
+<form class="d-flex" method="post" action="{% url 'contact' %}">
+    {% csrf_token %}
+    {{ contact_form }}
+    <button class="btn btn-outline-primary" type="submit" aria-hidden="true">Подписаться</button>
+</form>
