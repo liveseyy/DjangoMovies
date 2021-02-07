@@ -111,7 +111,7 @@ class AddStarRating(View):
 
 class Search(GenreYear, ListView):
     """Поиск фильма"""
-    paginate_by = 2
+    paginate_by = 4
 
     def get_queryset(self):
         return Movie.objects.filter(title__icontains=self.request.GET.get('q'))
