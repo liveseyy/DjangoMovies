@@ -78,3 +78,11 @@ ul.pagination {
   background: #272727;
 }
 .paginatin__item--dots {}
+
+a{
+  color: #179052;
+}
+
+a:hover{
+  color: #179052;
+}

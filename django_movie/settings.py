@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,6 +47,11 @@ INSTALLED_APPS = [
     'contact',
 
     'snowpenguin.django.recaptcha3',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.vk',
 ]
 
 MIDDLEWARE = [
@@ -93,6 +97,11 @@ DATABASES = {
     }
 }
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -125,13 +134,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-
-gettext = lambda s: s
-LANGUAGES = (
-    ('ru', gettext('Russia')),
-    ('en', gettext('English')),
-)
 
 
 # Static files (CSS, JavaScript, Images)
@@ -222,3 +224,10 @@ RECAPTCHA_SCORE_THRESHOLD = 0.5
 
 
 SITE_ID = 1
+
+LOGIN_REDIRECT_URL = '/'
+
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
+ACCOUNT_USERNAME_MIN_LENGTH = 4
+
+EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
